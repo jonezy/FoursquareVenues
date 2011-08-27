@@ -22,18 +22,16 @@ public class FoursquareVenueClient {
                 byte[] byteSend = Encoding.ASCII.GetBytes(postData);
                 webRequest.ContentLength = byteSend.Length;
 
-                using (Stream streamOut = webRequest.GetRequestStream()) {
+                using (Stream streamOut = webRequest.GetRequestStream())
                     streamOut.Write(byteSend, 0, byteSend.Length);
-                }
             }
         } else
             webRequest.Method = "GET";
 
-        using (StreamReader streamReader = new StreamReader(webRequest.GetResponse().GetResponseStream(), Encoding.UTF8)) {
-            if (streamReader.Peek() > -1)
-                returnValue = streamReader.ReadToEnd();
-        }
-        
+        WebResponse webResponse = webRequest.GetResponse();
+        using (StreamReader streamReader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8))
+            if (streamReader.Peek() > -1) returnValue = streamReader.ReadToEnd();
+
         return returnValue;
     }
 
