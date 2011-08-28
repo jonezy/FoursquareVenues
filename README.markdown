@@ -24,7 +24,11 @@ a collection of venue objects with properties dynamically filled (see the proper
 	
 	Console.WriteLine(venues.meta);
 	foreach (var item in venues.response) {
-		Console.WriteLine(item.id);
+		Console.WriteLine("Name: {0}. Here now: {1}",item.name, item.hereNow.count);
+		if (item.location.address != null)
+			Console.WriteLine(item.location.address);
+		
+		Console.WriteLine();
 	}
 	
 	Console.ReadLine();
